@@ -1,19 +1,19 @@
 package com.test.dev.contact.manager.application.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Schema(description = "Response containing details of a contact")
 public class ContactResponse {
-    
-    @Schema(description = "Contact ID", example = "1")
+
+    @Schema(description = "Contact ID", example = "1L")
     private Long id;
 
     @Schema(description = "Contact name", example = "John Doe")

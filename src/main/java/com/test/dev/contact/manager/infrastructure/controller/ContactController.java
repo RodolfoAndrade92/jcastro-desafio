@@ -20,13 +20,18 @@ public interface ContactController {
     @PostMapping("/create")
     ResponseEntity<ContactResponse> create(@RequestBody CreateContactRequest createContactRequest);
 
-    @Operation(summary = "List contacts")
+    @Operation(summary = "List all contacts")
     @ApiResponse(responseCode = "200", description = "Contacts successfully fetched")
     @GetMapping("/get")
-    ResponseEntity<List<ContactResponse>> get();
+    ResponseEntity<List<ContactResponse>> getAll();
+
+    @Operation(summary = "List active contacts")
+    @ApiResponse(responseCode = "200", description = "Contacts successfully fetched")
+    @GetMapping("/get/active")
+    ResponseEntity<List<ContactResponse>> getActive();
 
     @Operation(summary = "Update a contact")
     @ApiResponse(responseCode = "200", description = "Contact successfully updated")
-    @PutMapping("/update")
+    @PatchMapping("/update")
     ResponseEntity<ContactResponse> update(@RequestBody UpdateContactRequest updateContactRequest);
 }

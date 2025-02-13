@@ -4,7 +4,9 @@ import com.test.dev.contact.manager.application.dto.ContactResponse;
 import com.test.dev.contact.manager.application.dto.CreateContactRequest;
 import com.test.dev.contact.manager.application.dto.UpdateContactRequest;
 import com.test.dev.contact.manager.application.service.CreateContactService;
-import com.test.dev.contact.manager.domain.mapper.ContactMapper;
+import com.test.dev.contact.manager.application.service.FindActiveContactService;
+import com.test.dev.contact.manager.application.service.FindAllContactService;
+import com.test.dev.contact.manager.application.service.UpdateContactService;
 import com.test.dev.contact.manager.infrastructure.controller.ContactController;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,9 +18,18 @@ import java.util.List;
 public class ContactControllerImpl implements ContactController {
 
     private final CreateContactService createContactService;
+    private final FindAllContactService findAllContactService;
+    private final FindActiveContactService findActiveContactService;
+    private final UpdateContactService updateContactService;
 
-    public ContactControllerImpl(ContactMapper contactMapper, CreateContactService createContactService) {
+    public ContactControllerImpl(CreateContactService createContactService,
+                                 FindAllContactService findAllContactService,
+                                 FindActiveContactService findActiveContactService,
+                                 UpdateContactService updateContactService) {
         this.createContactService = createContactService;
+        this.findAllContactService = findAllContactService;
+        this.findActiveContactService = findActiveContactService;
+        this.updateContactService = updateContactService;
     }
 
     @Override
@@ -28,12 +39,20 @@ public class ContactControllerImpl implements ContactController {
     }
 
     @Override
-    public ResponseEntity<List<ContactResponse>> get() {
-        return null;
+    public ResponseEntity<List<ContactResponse>> getAll() {
+        List<ContactResponse> contactResponses = findAllContactService.findAllContacts();
+        return ResponseEntity.ok(contactResponses);
+    }
+
+    @Override
+    public ResponseEntity<List<ContactResponse>> getActive() {
+        List<ContactResponse> contactResponses = findActiveContactService.findActiveContacts();
+        return ResponseEntity.ok(contactResponses);
     }
 
     @Override
     public ResponseEntity<ContactResponse> update(UpdateContactRequest updateContactRequest) {
-        return null;
+        ContactResponse contactResponse = updateContactService.updateContact(updateContactRequest);
+        return ResponseEntity.ok(contactResponse);
     }
 }

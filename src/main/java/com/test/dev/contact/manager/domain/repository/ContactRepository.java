@@ -10,10 +10,11 @@ public interface ContactRepository {
 
     List<Contact> findAll();
 
+    List<Contact> findActives();
+
     Contact findById(Long id);
 
     boolean existsByCellPhone(String cellPhone);
 
     void delete(Long id);
-
 }

@@ -1,11 +1,13 @@
 package com.test.dev.contact.manager.application.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @Schema(description = "Request to create a new contact")
 public class CreateContactRequest {
 
